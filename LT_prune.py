@@ -53,15 +53,15 @@ parser.add_argument('--momentum', default=0.9, type=float, metavar='M',
 parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float,
                     metavar='W', help='weight decay (default: 1e-4)')
 # Checkpoints
-parser.add_argument('--resume', default='', type=str, metavar='PATH',
+parser.add_argument('--resume', default='results/model_best.pth.tar', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
 # Architecture
-parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet20',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='vgg19_bn',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
-parser.add_argument('--depth', type=int, default=29, help='Model depth.')
+parser.add_argument('--depth', type=int, default=19, help='Model depth.')
 # Miscs
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
@@ -71,7 +71,7 @@ parser.add_argument('--save_dir', default='test_checkpoint/', type=str)
 #Device options
 parser.add_argument('--gpu-id', default='0', type=str,
                     help='id(s) for CUDA_VISIBLE_DEVICES')
-parser.add_argument('--prune_ratio', default=0.98, type=float)
+parser.add_argument('--prune_ratio', default=0.6744, type=float)
 
 args = parser.parse_args()
 state = {k: v for k, v in args._get_kwargs()}

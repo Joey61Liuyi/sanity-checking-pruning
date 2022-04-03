@@ -56,12 +56,12 @@ parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float,
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
 # Architecture
-parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet20',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='vgg19_bn',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
-parser.add_argument('--depth', type=int, default=29, help='Model depth.')
+parser.add_argument('--depth', type=int, default=19, help='Model depth.')
 # Miscs
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',

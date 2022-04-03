@@ -62,12 +62,12 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
 parser.add_argument('--model', default='', type=str, metavar='PATH',
                     help='path to the initialization checkpoint (default: none)')
 # Architecture
-parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet20',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='vgg16',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
-parser.add_argument('--depth', type=int, default=29, help='Model depth.')
+parser.add_argument('--depth', type=int, default=16, help='Model depth.')
 # Miscs
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
@@ -86,12 +86,12 @@ parser.add_argument('--writerdir',default = 'InitExp/', type = str)
 # ========== the linear_keep_ratio attribute should be used together with the smart_ratio attribute ============
 parser.add_argument('--linear_keep_ratio', type=float, default=0.3, help='smart ratio: linear keep ratio')
 # ========== the init_prune_ratio attribute should use together with the smart_ratio/GraSP/SNIP attribute ============
-parser.add_argument('--init_prune_ratio', type=float, default=0.98, help='init pruning ratio')
+parser.add_argument('--init_prune_ratio', type=float, default=0.6744, help='init pruning ratio')
 
 # ========== the following attributes have INT type, but actually they are BOOLEAN: zero or NONZERO ============
 parser.add_argument('--rearrange',type = int, default = 0,help = 'rearrange the masks')
 parser.add_argument('--shuffle_unmasked_weights',default = 0, type = int)
-parser.add_argument('--smart_ratio',default = 0, type = int,help = 'using smart ratio')
+parser.add_argument('--smart_ratio',default = 1, type = int,help = 'using smart ratio')
 parser.add_argument('--GraSP', type=int, default=0, help='Using GraSP')
 parser.add_argument('--SNIP', type=int, default=0, help='Using SNIP')
 parser.add_argument('--randLabel',type=int, default=0,help = 'Using randLabel Dataset for GraSP/SNIP')
