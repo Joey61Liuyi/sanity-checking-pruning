@@ -26,6 +26,7 @@ from utils.misc import get_zero_param
 from pruner.GraSP import GraSP
 from pruner.SNIP import SNIP
 from pruner.SmartRatio import SmartRatio
+import wandb
 
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
@@ -62,12 +63,12 @@ parser.add_argument('--resume', default='', type=str, metavar='PATH',
 parser.add_argument('--model', default='', type=str, metavar='PATH',
                     help='path to the initialization checkpoint (default: none)')
 # Architecture
-parser.add_argument('--arch', '-a', metavar='ARCH', default='vgg16',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet18)')
-parser.add_argument('--depth', type=int, default=16, help='Model depth.')
+parser.add_argument('--depth', type=int, default=32, help='Model depth.')
 # Miscs
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
@@ -488,6 +489,14 @@ def main():
         print('Overall Pruning Ratio : {}'.format(float(ZERO_parameters)/float(num_parameters)))
         train_loss, train_acc = train(trainloader, model, criterion, optimizer, epoch, use_cuda)
         test_loss, test_acc = test(testloader, model, criterion, epoch, use_cuda)
+        info_dict = {
+            "epoch": epoch,
+            "train_loss": train_loss,
+            "train_acc": train_acc,
+            "test_loss": test_loss,
+            "test_acc": test_acc
+        }
+        wandb.log(info_dict)
         
         # ========== write the scalar to tensorboard ============ 
         writer.add_scalar('train_loss', train_loss,epoch)
@@ -646,4 +655,7 @@ def adjust_learning_rate(optimizer, epoch):
             param_group['lr'] = state['lr']
 
 if __name__ == '__main__':
+    project_name = "sanity_pruning"
+    name = "smart_ratio_cifar10"
+    wandb.init(project=project_name, name=name)
     main()
